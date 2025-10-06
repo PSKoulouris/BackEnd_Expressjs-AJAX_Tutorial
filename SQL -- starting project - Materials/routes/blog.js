@@ -46,6 +46,38 @@ router.get("/new-post", async function(req, res) {
 });
 
 
+//routes to create Views for each review by id:
+router.get("/posts/:id", async function(req, res) {
+
+    const q = `SELECT posts.*, authors.name AS author_name, authors.email AS author_email
+               FROM posts
+               INNER JOIN authors
+               ON authors.author_id = posts.author_id
+               WHERE posts.post_id = ?`;
+
+    const [posts] = await db.query(q, [req.params.id,]) //return an array of objects
+    
+    if(!posts || posts.length === 0) {
+        return res.status(404).render("404");
+    }
+
+    const postData = {
+        ...posts[0],
+        date : posts[0].date.toISOString(),
+        humanReadableDate: posts[0].date.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        })
+    }
+
+    res.render("post-detail", { post: postData });
+    
+});
+
+
+
 
 //Insert new posts into database blog:
 router.post("/new-post", async function(req, res) {
