@@ -1,7 +1,7 @@
 //install MySQL2:
 const mysql = require("mysql2/promise");
 
-const pool = mysql.createPool({
+const pool = mysql.createPool({  // ensures many people can connect at the same time and not one at a time 
     "host": "localhost",
     "user": "root",
     "database": "blog",
