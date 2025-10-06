@@ -13,8 +13,8 @@
     <section id="post-meta">
       <a href="mailto: <%=post.author_email%>"> <!--No longer use because of security gap-->
         <%=post.author_name%></a>
-      <time datetime="<%= post.date%>">
-        <%=post.humanreadableDate%>
+      <time datetime="<%= post.date %>">
+        <%= post.humanReadableDate %>
       </time>
     </section>
     <hr>

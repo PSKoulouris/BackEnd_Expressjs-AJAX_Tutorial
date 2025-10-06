@@ -63,7 +63,7 @@ router.get("/posts/:id", async function(req, res) {
 
     const postData = {
         ...posts[0],
-        date : posts[0].date.toISOString(),
+        date: posts[0].date.toISOString(),
         humanReadableDate: posts[0].date.toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
@@ -72,7 +72,7 @@ router.get("/posts/:id", async function(req, res) {
         })
     }
 
-    res.render("post-detail", { post: postData });
+    res.render("post-detail", {post: postData});
     
 });
 
