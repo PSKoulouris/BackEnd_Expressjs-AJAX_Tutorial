@@ -16,7 +16,8 @@ router.get("/", function(req, res) {
     res.render("posts-list");
 });*/
 
-
+////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 
 //retrieve the data and send information to posts_list.ejs:
 router.get("/posts", async function(req, res) {
@@ -31,7 +32,8 @@ router.get("/posts", async function(req, res) {
     res.render("posts-list",{ posts: posts});
 });
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 //routes to create new posts with async from database:
 router.get("/new-post", async function(req, res) {
@@ -45,6 +47,8 @@ router.get("/new-post", async function(req, res) {
 
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 //routes to create Views for each review by id:
 router.get("/posts/:id", async function(req, res) {
@@ -77,7 +81,8 @@ router.get("/posts/:id", async function(req, res) {
 });
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 
 //Insert new posts into database blog:
 router.post("/new-post", async function(req, res) {
@@ -98,7 +103,43 @@ router.post("/new-post", async function(req, res) {
     
 });
 
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 
+//Edit the Review (retrive data in valuers and upate them):
+
+router.get("/posts/:id/edit", async function(req, res) {
+
+    const q = `SELECT * FROM posts
+               WHERE post_id = ?`;
+    
+    const [posts] = await db.query(q, [req.params.id]) //return an array of objects
+    
+    if(!posts || posts.length === 0) {
+        return res.status(404).render("404");
+    }
+
+    res.render("update-post", {post: posts[0]});
+});
+
+
+
+router.post("/posts/:id/edit", async function(req, res) {
+
+    const q = `UPDATE posts
+               SET title = ?, summary = ?, body = ?
+               WHERE post_id = ?`;
+
+
+    await db.query(q, [req.body.title, 
+            req.body.summary, 
+            req.body.content, 
+            req.params.id
+        ]) //return an array of objects
+
+    res.redirect("/posts");
+    
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
