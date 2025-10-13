@@ -3,6 +3,7 @@ const authUtil = require('../util/authentication')
 
 const validation = require('../util/validation')
 const sessionFlash = require('../util/session-flash')
+const session = require('express-session')
 
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
@@ -123,8 +124,20 @@ async function login(req,res){
     return next(error)
   }
 
+  const sessionErrorData = {
+    errorMessage : " Invalid Credentials -double check your aeamil and password",
+    email : user.email,
+    password : user.password
+  }
+
   if(!exitingUser){
-    return res.redirect('/login')
+    sessionFlash.flashDataToSession(req,
+      sessionErrorData,
+      function(){
+        res.redirect('/login')
+    }
+  )
+  return  res.redirect('/login')
   }
 
   const passwordIsCorrect = await user.hasMatchingPassword(exitingUser.password)
@@ -138,6 +151,8 @@ async function login(req,res){
   })
 
 }
+
+
 
 function logout(req,res){
   authUtil.destroyUserAuthSession(req)
