@@ -5,6 +5,8 @@ const uuid = require("uuid") //installed with npm install uuid
 
 const app = express()
 
+const userRoutes = require('./routes/userRoutes')
+
 
 
 app.set('view engine', 'ejs')
@@ -13,6 +15,8 @@ app.set("views", path.join(__dirname,"views"))
 
 app.use(express.static("public"))
 app.use(express.urlencoded({extended:false}))
+
+app.use('/user', userRoutes)
 
 
 
