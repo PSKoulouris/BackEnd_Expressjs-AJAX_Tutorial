@@ -1,10 +1,11 @@
-const users2Model = require("../model/userModel")
+const uuid = require ('uuid')
+const usersModel = require("../model/userModel")
 
 function listUsers(req, res){
 
-    const users2_data = users2Model()
+    const users_data = usersModel.readUsers()
 
-   /* const user_data = [
+   /* const users_data = [
         {name : "philippe",
          email: "philippe@gmail.com"
         },
@@ -14,8 +15,25 @@ function listUsers(req, res){
     ]
 */
 
-    res.render("users", {users2_data})
+    res.render("users", {users_data})
 }
 
-module.exports = listUsers
+function writeUsersRedirect(req, res){
+
+    const userData = req.body
+    userData.uId = uuid.v4()
+    const parsedData = usersModel.readUsers()
+
+    parsedData.push(userData)
+
+    usersModel.writeUsers(parsedData)
+
+    res.redirect('/')
+}
+
+
+module.exports = {
+    listUsers : listUsers,
+    writeUsersRedirect : writeUsersRedirect
+}
 

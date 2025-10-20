@@ -1,8 +1,13 @@
 const express = require ('express')
 const router = express.Router()
-const listUsers = require('../controllers/userController')
+const controller = require('../controllers/userController')
 
-router.get('/', listUsers)
+router.get('/userData', controller.listUsers)
+
+router.post('/store-user', controller.writeUsersRedirect)
 
 module.exports = router
+
+
+
 

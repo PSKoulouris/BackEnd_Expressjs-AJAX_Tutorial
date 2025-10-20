@@ -6,6 +6,8 @@ const uuid = require("uuid") //installed with npm install uuid
 const app = express()
 
 const userRoutes = require('./routes/userRoutes')
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -16,7 +18,9 @@ app.set("views", path.join(__dirname,"views"))
 app.use(express.static("public"))
 app.use(express.urlencoded({extended:false}))
 
-app.use('/user', userRoutes)
+
+//use routes from userRouter:
+app.use('/users', userRoutes)
 
 
 
@@ -33,6 +37,7 @@ app.get("/", function(req, res){
     res.render("home")
 })
 
+/*
 app.post("/store-user",function(req,res){
     const username = req.body
     username.uId = uuid.v4()
@@ -45,7 +50,7 @@ app.post("/store-user",function(req,res){
     //res.send("User stored successfully!");
     res.redirect("/")
 })
-
+*/
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////

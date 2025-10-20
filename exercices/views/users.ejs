@@ -8,11 +8,13 @@
 <body>
 
 <ul>
-    <% users2_data.forEach(function(data){%>
+    <% users_data.forEach(function(data){%>
 
         <li>
             <p><%= data.name %></p>
             <p><%= data.email %></p>
+            <p><%= data.address %></p>
+            <p><%= data.comment %></p>
         </li> 
 
     <%})%>
