@@ -2,6 +2,7 @@ const express = require("express")
 const path = require("path")
 const fs = require("fs")
 const uuid = require("uuid") //installed with npm install uuid
+const db = require('./data/database')
 
 const app = express()
 
@@ -20,7 +21,7 @@ app.use(express.urlencoded({extended:false}))
 
 
 //use routes from userRouter:
-app.use('/users', userRoutes)
+app.use('/', userRoutes)
 
 
 
@@ -37,9 +38,6 @@ app.get("/", function(req, res){
     res.render("home")
 })
 
-app.get('/database_users_form', function(req, res){
-    res.render('database_users_form')
-})
 
 /*
 app.post("/store-user",function(req,res){
@@ -58,5 +56,12 @@ app.post("/store-user",function(req,res){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-app.listen(3000)
+
+db.connectToDatabase()
+    .then(function(){
+        app.listen(3000)
+    })
+    .catch(function(error){
+        console.log(error)
+    })
 

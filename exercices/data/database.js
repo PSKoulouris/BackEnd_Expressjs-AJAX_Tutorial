@@ -12,13 +12,12 @@ async function connectToDatabase() {
 
 function getDb() {
     if (!database) {
-        throw new error("database not connected")
-    } else {
-        return database
+        throw new Error("database not connected")
     }
+        return database
 }
 
 module.exports = {
-    connecToDatabse: connectToDatabase,
+    connectToDatabase: connectToDatabase,
     getDb: getDb
 }
