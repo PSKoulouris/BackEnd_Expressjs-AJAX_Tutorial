@@ -37,6 +37,10 @@ app.get("/", function(req, res){
     res.render("home")
 })
 
+app.get('/database_users_form', function(req, res){
+    res.render('database_users_form')
+})
+
 /*
 app.post("/store-user",function(req,res){
     const username = req.body
