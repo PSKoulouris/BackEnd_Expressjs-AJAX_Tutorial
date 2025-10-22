@@ -6,6 +6,7 @@
     <title>Database Exercices</title>
 </head>
 <body>
+    <h2>Save Users Details:</h2>
     <form action ="/database_users_form" method = "POST">
 
         <label for = "id_name">Name:</label>
@@ -22,6 +23,30 @@
         
         <input type = "submit" value = "submit">
     </form>
+
+    <hr>
+
+    <h2>Retrieve Users details:</h2>
+
+    <form action = "/listUser" method ="GET">
+        <input type = "submit" value = "list">
+    </form>
     
+    <%if (typeof userList !== 'undefined' && userList.length > 0) { %>
+
+        <ul>
+            <%userList.forEach(function(data){%>
+
+                <li>
+                    <h3> <%= data.name %> </h3>
+                    <p> <%= data.email %> </p>
+                    </p> <%= data.fullAddress() %> </p>
+                </li>
+        
+            <%})%>
+        </ul>
+
+    <%}%>
+
 </body>
 </html>

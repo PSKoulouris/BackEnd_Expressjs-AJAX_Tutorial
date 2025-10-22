@@ -1,6 +1,7 @@
 const UserDatabase = require('../model/userModelDatabase')
 
 
+//Save data t colection: 
 async function saveData(req, res, next) {
     const user = new UserDatabase(
         req.body.name_name,
@@ -15,7 +16,21 @@ async function saveData(req, res, next) {
         return next(error)
     }
 
-    res.redirect('/')
+    res.redirect('/database_users_form')
 }
 
-module.exports = {saveData}
+//REtrieve data from collection:
+
+async function listUsers(req, res, next){
+    try{
+        const userList = await UserDatabase.fetchAll()
+        res.render('database_users_form', {userList : userList})
+    } catch (error){
+        next(error)
+    }
+}
+
+module.exports = {
+    saveData : saveData,
+    listUsers : listUsers
+}
